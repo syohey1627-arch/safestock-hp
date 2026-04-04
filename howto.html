@@ -312,36 +312,50 @@
     上部のタブで「防災備蓄」「日用ストック」「共有備蓄」を切り替えられます。
   </p>
 
+  <!-- 防災備蓄 -->
   <div class="guide-block">
-    <div class="phone-pair">
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/stock_list.png" alt="防災備蓄リスト">
-        </div>
-      </div>
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/daily_stock.png" alt="日用ストック">
-        </div>
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <img src="screenshots/disaster_stock.png" alt="防災備蓄リスト">
       </div>
     </div>
     <div class="guide-text">
-      <h3>在庫の確認と各アイコンの使い方</h3>
-      <p>「＋」「−」ボタンで在庫数を増減できます。<br>
-      各カードのバーが長いほど目標数量を満たしている状態です。</p>
+      <h3>防災備蓄</h3>
+      <p>初期設定で選んだ備蓄品目はここで管理します。上部に現在の防災スコアが表示され、カテゴリ別の充足率も確認できます。</p>
+      <p>「＋」「−」ボタンで在庫数を増減でき、各カードのバーが長いほど目標数量を満たしている状態です。</p>
       <ul>
         <li><strong>編集ボタン（✏️）</strong>：賞味期限・メモ・購入時の検索ワードなどを登録できます</li>
         <li><strong>カレンダーアイコン</strong>：賞味期限を登録。ローリングストックの期限管理と連動します</li>
-        <li><strong>カートアイコン</strong>：Amazon・楽天市場・ヤフーショッピングのアプリをそのまま開けます。編集画面で「カップヌードル 備蓄」などの検索ワードを設定しておくと、タップ時にそのワードで検索した状態で起動します</li>
-        <li><strong>🎒 バッグアイコン</strong>（防災・日用共通）：緊急持ち出し袋への登録・数量指定ができます。登録した品目はホーム画面の「緊急時サポート」からまとめて確認できます</li>
-        <li><strong>右下の＋ボタン</strong>：リストにない品目を自由に追加できます</li>
+        <li><strong>カートアイコン</strong>：Amazon・楽天市場・ヤフーショッピングのアプリをそのまま開けます。編集画面で「カップヌードル 備蓄」などの検索ワードを設定しておくと、そのワードで検索した状態で起動します</li>
+        <li><strong>🎒 バッグアイコン</strong>：緊急持ち出し袋への登録・数量指定ができます（防災・日用ストック共通）</li>
+        <li><strong>右下の＋ボタン</strong>：定番品目以外を自由に追加できます</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 日用ストック -->
+  <div class="guide-block reverse" style="margin-top: 8px;">
+    <div class="phone-wrap">
+      <div class="phone-frame">
+        <img src="screenshots/daily_add_item.png" alt="日用ストック品目追加画面">
+      </div>
+    </div>
+    <div class="guide-text">
+      <h3>日用ストック</h3>
+      <p>マヨネーズ・シャンプーなど、日常的に使うものをストック管理できるタブです。<br>
+      右下の青い「＋」ボタンから、自由入力での追加と定番品目からの追加ができます。</p>
+      <ul>
+        <li>品名・カテゴリ・数量・単位を自由に設定できます</li>
+        <li>目標数を入力すると充足率バーが表示され、在庫の過不足がひと目でわかります</li>
+        <li>賞味期限・検索ワード・メモなども合わせて登録できます</li>
+        <li><strong>「防災品として登録」スイッチ</strong>：オンにすると防災備蓄タブにも表示されます。自由追加した品目も防災備蓄として管理できます</li>
       </ul>
 
-      <h3 style="margin-top: 24px;">防災タグ・共有タグの使い方（日用ストック）</h3>
+      <h3 style="margin-top: 20px;">防災タグ・共有タグ</h3>
       <p>日用ストックの各カードには「防災」「共有」のタグボタンがあります。編集画面からも切り替えられます。</p>
       <ul>
-        <li><strong>防災タグ</strong>：オンにすると、その日用品が防災備蓄タブにも表示されます。普段使いの食料品などを防災備蓄として兼用したいときに便利です</li>
-        <li><strong>共有タグ</strong>：オンにすると、共有備蓄タブに表示され、グループメンバーと在庫状況を共有できます</li>
+        <li><strong>防災タグ</strong>：オンにすると防災備蓄タブにも表示されます。普段使いの食料品などを防災備蓄として兼用したいときに便利です</li>
+        <li><strong>共有タグ</strong>：オンにすると共有備蓄タブに表示され、グループメンバーと在庫状況を共有できます</li>
       </ul>
       <div class="tip-box">
         <strong>💡 共有のしくみ</strong>
@@ -351,7 +365,8 @@
     </div>
   </div>
 
-  <div class="guide-block reverse" style="margin-top: 8px;">
+  <!-- 緊急持ち出し袋 -->
+  <div class="guide-block" style="margin-top: 8px;">
     <div class="phone-wrap">
       <div class="phone-frame">
         <img src="screenshots/emergency_kit_bag.png" alt="緊急持ち出し袋の画面">
@@ -361,7 +376,7 @@
       <h3>🎒 緊急持ち出し袋の管理</h3>
       <p>バッグアイコンをタップすると、その品目が緊急持ち出し袋に登録されます。防災備蓄・日用ストックどちらの品目でも登録できます。</p>
       <ul>
-        <li>持ち出す予定の品目と数量をまとめて確認できます</li>
+        <li>持ち出す予定の品目と数量をまとめて一覧で確認できます</li>
         <li>持出袋の保管場所や備考メモも登録できます</li>
         <li>ホーム画面の「緊急時サポート」→「持ち出し」タブから確認できます</li>
       </ul>
@@ -369,24 +384,6 @@
         <strong>💡 ポイント</strong>
         平常時から持ち出し品を登録しておくことで、いざというときに何を持ち出すか迷わずに済みます。
       </div>
-    </div>
-  </div>
-
-  <div class="guide-block" style="margin-top: 8px;">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/daily_add_item.png" alt="日用ストック品目追加画面">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>日用ストックへの自由追加</h3>
-      <p>日用ストックは品名を自由に入力して追加できます。定番品目にないものはこちらから登録してください。</p>
-      <ul>
-        <li>品名・カテゴリ・数量・単位を自由に設定できます</li>
-        <li>目標数を入力すると充足率バーが表示され、在庫の過不足がひと目でわかります</li>
-        <li>賞味期限・検索ワード・メモなども合わせて登録できます</li>
-        <li><strong>「防災品として登録」スイッチ</strong>をオンにすると、防災備蓄タブにも表示されます。自由追加した品目も防災備蓄として一緒に管理できます</li>
-      </ul>
     </div>
   </div>
 
