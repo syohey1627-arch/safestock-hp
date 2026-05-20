@@ -3,527 +3,338 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>使い方ガイド | SafeStock</title>
+  <title>SafeStock 使い方ガイド</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; color: #333; background: #fff; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── ヘッダー ── */
-    header {
-      background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
-      color: #fff;
-      padding: 40px 20px 36px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: #F8FAFC;
+      color: #212121;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .site-header {
+      background: #1565C0;
+      color: white;
+      padding: 28px 16px 22px;
       text-align: center;
     }
-    header h1 { font-size: 2em; font-weight: 700; }
-    header p { font-size: 1em; margin-top: 10px; opacity: 0.9; }
+    .site-header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.04em; }
+    .site-header p { font-size: 13px; opacity: 0.82; margin-top: 6px; }
     .back-link {
       display: inline-block;
-      margin-top: 18px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 0.9em;
-      opacity: 0.85;
-    }
-    .back-link:hover { opacity: 1; text-decoration: underline; }
-
-    /* ── 目次ナビ ── */
-    nav.toc {
-      background: #f9fbe7;
-      border-bottom: 1px solid #dce9dc;
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav.toc ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      list-style: none;
-      max-width: 860px;
-      margin: 0 auto;
-      justify-content: center;
-    }
-    nav.toc a {
-      color: #2e7d32;
-      text-decoration: none;
-      font-size: 0.85em;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    nav.toc a:hover { text-decoration: underline; }
-
-    /* ── セクション共通 ── */
-    .section-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 56px 20px 40px;
-    }
-    .section-wrap + .section-wrap { border-top: 1px solid #e8f5e9; }
-
-    h2.section-title {
-      font-size: 1.5em;
-      color: #2e7d32;
-      border-left: 4px solid #43a047;
-      padding-left: 12px;
-      margin-bottom: 8px;
-    }
-    .section-desc {
-      font-size: 0.95em;
-      color: #555;
-      line-height: 1.8;
-      margin-bottom: 32px;
-    }
-
-    /* ── ガイドブロック（画像＋テキスト） ── */
-    .guide-block {
-      display: flex;
-      gap: 32px;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
-    .guide-block.reverse { flex-direction: row-reverse; }
-
-    /* スマホフレーム */
-    .phone-wrap {
-      flex-shrink: 0;
-      width: 200px;
-    }
-    .phone-frame {
-      background: #111;
-      border-radius: 28px;
-      padding: 10px 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-      position: relative;
-    }
-    .phone-frame::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 8px;
-      background: #333;
-      border-radius: 4px;
-      margin: 0 auto 8px;
-    }
-    .phone-frame img {
-      width: 100%;
-      border-radius: 18px;
-      display: block;
-    }
-
-    /* テキスト側 */
-    .guide-text { flex: 1; }
-    .guide-text h3 {
-      font-size: 1.05em;
-      color: #2e7d32;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    .guide-text p {
-      font-size: 0.92em;
-      color: #444;
-      line-height: 1.85;
-      margin-bottom: 14px;
-    }
-    .guide-text ul {
-      list-style: none;
-      padding: 0;
-    }
-    .guide-text ul li {
-      font-size: 0.9em;
-      color: #444;
-      line-height: 1.7;
-      padding: 5px 0 5px 20px;
-      position: relative;
-      border-bottom: 1px dashed #e0e0e0;
-    }
-    .guide-text ul li:last-child { border-bottom: none; }
-    .guide-text ul li::before {
-      content: '▶';
-      color: #43a047;
-      font-size: 0.7em;
-      position: absolute;
-      left: 2px;
-      top: 8px;
-    }
-
-    /* 2枚並び */
-    .phone-pair {
-      display: flex;
-      gap: 16px;
-      flex-shrink: 0;
-    }
-    .phone-pair .phone-wrap { width: 160px; }
-
-    /* ポイントバッジ */
-    .tip-box {
-      background: #e8f5e9;
-      border-left: 4px solid #43a047;
-      border-radius: 0 8px 8px 0;
-      padding: 12px 16px;
-      font-size: 0.88em;
-      color: #2e7d32;
-      line-height: 1.7;
       margin-top: 14px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
     }
-    .tip-box strong { display: block; margin-bottom: 4px; }
+    .back-link:hover { color: #fff; }
 
-    /* フッター */
-    footer {
-      background: #f5f5f5;
-      text-align: center;
-      padding: 32px 20px;
-      font-size: 0.85em;
-      color: #777;
-    }
-    footer a { color: #2e7d32; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    .container { max-width: 480px; margin: 0 auto; padding: 16px 12px 56px; }
 
-    /* レスポンシブ */
-    @media (max-width: 600px) {
-      .guide-block, .guide-block.reverse {
-        flex-direction: column;
-        align-items: center;
-      }
-      .phone-wrap { width: 180px; }
-      .phone-pair .phone-wrap { width: 140px; }
-      nav.toc ul { gap: 6px 12px; }
+    .accordion {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      margin-bottom: 12px;
+      overflow: hidden;
     }
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      gap: 12px;
+    }
+    .accordion-header:active { background: #F5F5F5; }
+    .accordion-emoji { font-size: 24px; flex-shrink: 0; line-height: 1; }
+    .accordion-title { flex: 1; min-width: 0; }
+    .accordion-title .step-label { font-size: 11px; color: #1565C0; font-weight: 700; letter-spacing: 0.06em; }
+    .accordion-title h2 { font-size: 16px; font-weight: 700; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .accordion-arrow { font-size: 12px; color: #9E9E9E; transition: transform 0.25s ease; flex-shrink: 0; }
+    .accordion.open .accordion-arrow { transform: rotate(180deg); }
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .accordion.open .accordion-body { max-height: 3000px; }
+    .accordion-content { padding: 0 16px 20px; border-top: 1px solid #EEEEEE; }
+
+    .gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 0 10px;
+      scrollbar-width: none;
+    }
+    .gallery::-webkit-scrollbar { display: none; }
+    .gallery img {
+      height: 360px;
+      width: auto;
+      border-radius: 10px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.13);
+      object-fit: contain;
+      background: #F0F0F0;
+    }
+    .gallery-hint { font-size: 11px; color: #BDBDBD; text-align: center; margin-bottom: 4px; }
+
+    .sec-heading { font-size: 13px; font-weight: 700; color: #1565C0; margin: 18px 0 7px; padding-bottom: 5px; border-bottom: 2px solid #E3F2FD; }
+    .body-text { font-size: 14px; color: #424242; line-height: 1.78; }
+
+    .bullet-list { list-style: none; margin: 8px 0 0; }
+    .bullet-list li { font-size: 14px; color: #424242; padding: 4px 0 4px 16px; position: relative; line-height: 1.65; }
+    .bullet-list li::before { content: '•'; position: absolute; left: 0; color: #1565C0; font-weight: 700; }
+
+    .tip-box { background: #E3F2FD; border-left: 3px solid #1565C0; border-radius: 0 8px 8px 0; padding: 10px 13px; margin-top: 14px; font-size: 13.5px; color: #1A237E; line-height: 1.68; }
+    .tip-box .tip-label { font-weight: 700; margin-bottom: 3px; }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>📖 使い方ガイド</h1>
-  <p>各機能をスクリーンショット付きでわかりやすく解説します</p>
-  <a href="index.html" class="back-link">← トップページに戻る</a>
+<header class="site-header">
+  <h1>SafeStock 使い方ガイド</h1>
+  <p>各項目をタップして使い方を確認できます</p>
+  <a href="index.html" class="back-link">← トップページへ戻る</a>
 </header>
 
-<nav class="toc">
-  <ul>
-    <li><a href="#setup">① 初期設定</a></li>
-    <li><a href="#home">② ホーム画面</a></li>
-    <li><a href="#stock">③ 備蓄リスト</a></li>
-    <li><a href="#rolling">④ ローリングストック</a></li>
-    <li><a href="#shopping">⑤ 買い物支援</a></li>
-    <li><a href="#emergency">⑥ 緊急時サポート</a></li>
-  </ul>
-</nav>
+<main class="container">
 
-
-<!-- ① 初期設定 -->
-<div class="section-wrap" id="setup">
-  <h2 class="section-title">① 初期設定（はじめての起動）</h2>
-  <p class="section-desc">
-    アプリを初めて起動すると、5つのステップで世帯情報を設定します。<br>
-    入力した内容をもとに、あなたの家族に合った備蓄量を自動で計算します。
-  </p>
-
-  <div class="guide-block">
-    <div class="phone-pair">
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/setup_members.png" alt="人数設定画面">
-        </div>
+  <div class="accordion" id="acc-1">
+    <div class="accordion-header" onclick="toggle('acc-1')">
+      <span class="accordion-emoji">⚙️</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 1</div>
+        <h2>初期設定</h2>
       </div>
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/setup_location.png" alt="住まい設定画面">
-        </div>
-      </div>
+      <span class="accordion-arrow">▼</span>
     </div>
-    <div class="guide-text">
-      <h3>Step 1〜2：家族構成と住まいを教えてください</h3>
-      <p>まず何人で暮らしているか、各メンバーの性別・年齢層を登録します。<br>
-      続いて居住地域・住居タイプ（戸建て／集合住宅）・備蓄の目標日数を選びましょう。</p>
-      <ul>
-        <li>家族の人数は最大9人まで登録できます</li>
-        <li>乳幼児・高齢者・ペットがいる場合は、専用の備蓄品目が自動で追加されます</li>
-        <li>備蓄目標は「3日分」か「7日分」から選択。まずは3日分から始めるのがおすすめです</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 あとから変更できます</strong>
-        引っ越しや家族構成の変化があっても大丈夫。「設定」タブからいつでも内容を変更できます。
-      </div>
-    </div>
-  </div>
-
-  <div class="guide-block reverse">
-    <div class="phone-pair">
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/setup_items.png" alt="品目選択画面">
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/setup/01-1.png" alt="初期設定 画面1">
+          <img src="./images/setup/01-2.png" alt="初期設定 画面2">
+          <img src="./images/setup/01-3.png" alt="初期設定 画面3">
+          <img src="./images/setup/01-4.png" alt="初期設定 画面4">
+          <img src="./images/setup/01-5.png" alt="初期設定 画面5">
+          <img src="./images/setup/Screenshot_1776667744.png" alt="初期設定 画面6">
         </div>
-      </div>
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/setup_score.png" alt="防災スコア画面">
+        <p class="gallery-hint">← 横にスワイプで続きを確認</p>
+        <p class="sec-heading">初期設定について</p>
+        <p class="body-text">アプリを初めて起動すると、家族構成・居住地・備蓄日数などを設定する画面が表示されます。この情報をもとに、あなたの家庭に最適な備蓄目標量が自動で計算されます。</p>
+        <ul class="bullet-list">
+          <li>世帯人数・年齢・ペットの有無を入力します</li>
+          <li>居住地（都道府県・市区町村）を選択します</li>
+          <li>備蓄したい日数を選択します（3日・7日など）</li>
+          <li>品目ごとの目標数量が自動で算出されます</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 あとから変更できます</div>
+          設定はいつでも「設定」タブから変更できます。引っ越しや家族構成の変化があったときに更新しましょう。
         </div>
       </div>
     </div>
-    <div class="guide-text">
-      <h3>Step 3〜5：備蓄品目を選んで、スコアを確認</h3>
-      <p>管理したい品目にチェックを入れるだけで完了です。必要な数量は世帯情報から自動で計算されます。<br>
-      設定が完了すると、現在の備蓄状況を100点満点で表す「防災スコア」が確認できます。</p>
-      <ul>
-        <li>「ローリングストックおすすめ」の品目は、賞味期限管理と組み合わせると便利です</li>
-        <li>防災スコアは食品・衛生用品・生活用品などカテゴリ別にも確認できます</li>
-        <li>「最初に備えたい3品目」が表示されるので、何から揃えれば良いかひと目でわかります</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ② ホーム画面 -->
-<div class="section-wrap" id="home">
-  <h2 class="section-title">② ホーム画面</h2>
-  <p class="section-desc">
-    アプリを開くと最初に表示されるダッシュボードです。今の備蓄状況をざっくり把握できます。
-  </p>
-
-  <div class="guide-block">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/home.png" alt="ホーム画面">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>ホーム画面の見方</h3>
-      <p>防災スコアとカテゴリ別の充足率が一目でわかります。<br>
-      期限が近い品目や補充が必要な日用品はアラートとして表示されます。</p>
-      <ul>
-        <li><strong>防災スコア</strong>：備蓄の充実度を0〜100で表示。カテゴリ別の内訳も確認できます</li>
-        <li><strong>注意が必要な品目</strong>：期限切れ・期限間近の防災備蓄品。タップすると備蓄リストに移動します</li>
-        <li><strong>日用ストック</strong>：在庫が少ない・期限切れの日用品のお知らせ。タップすると備蓄リストに移動します</li>
-        <li><strong>緊急時サポート</strong>：「確認」ボタンから持ち出し袋の設定やチェックリストに移動できます</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-<!-- ③ 備蓄リスト -->
-<div class="section-wrap" id="stock">
-  <h2 class="section-title">③ 備蓄リスト</h2>
-  <p class="section-desc">
-    防災備蓄品と日用ストックをまとめて管理できる画面です。<br>
-    上部のタブで「防災備蓄」「日用ストック」「共有備蓄」を切り替えられます。
-  </p>
-
-  <!-- 防災備蓄 -->
-  <div class="guide-block">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/disaster_stock.png" alt="防災備蓄リスト">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>防災備蓄</h3>
-      <p>初期設定で選んだ備蓄品目はここで管理します。上部に現在の防災スコアが表示され、カテゴリ別の充足率も確認できます。</p>
-      <p>「＋」「−」ボタンで在庫数を増減でき、各カードのバーが長いほど目標数量を満たしている状態です。</p>
-      <ul>
-        <li><strong>編集ボタン（✏️）</strong>：賞味期限・メモ・購入時の検索ワードなどを登録できます</li>
-        <li><strong>カレンダーアイコン</strong>：賞味期限を登録。ローリングストックの期限管理と連動します</li>
-        <li><strong>カートアイコン</strong>：Amazon・楽天市場・ヤフーショッピングのアプリをそのまま開けます。編集画面で「カップヌードル 備蓄」などの検索ワードを設定しておくと、そのワードで検索した状態で起動します</li>
-        <li><strong>🎒 バッグアイコン</strong>：緊急持ち出し袋への登録・数量指定ができます（防災・日用ストック共通）</li>
-        <li><strong>右下の＋ボタン</strong>：定番品目以外を自由に追加できます</li>
-      </ul>
-    </div>
   </div>
 
-  <!-- 日用ストック -->
-  <div class="guide-block reverse" style="margin-top: 8px;">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/daily_add_item.png" alt="日用ストック品目追加画面">
+  <div class="accordion" id="acc-2">
+    <div class="accordion-header" onclick="toggle('acc-2')">
+      <span class="accordion-emoji">🏠</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 2</div>
+        <h2>ホーム画面</h2>
       </div>
+      <span class="accordion-arrow">▼</span>
     </div>
-    <div class="guide-text">
-      <h3>日用ストック</h3>
-      <p>マヨネーズ・シャンプーなど、日常的に使うものをストック管理できるタブです。<br>
-      右下の青い「＋」ボタンから、自由入力での追加と定番品目からの追加ができます。</p>
-      <ul>
-        <li>品名・カテゴリ・数量・単位を自由に設定できます</li>
-        <li>目標数を入力すると充足率バーが表示され、在庫の過不足がひと目でわかります</li>
-        <li>賞味期限・検索ワード・メモなども合わせて登録できます</li>
-        <li><strong>「防災品として登録」スイッチ</strong>：オンにすると防災備蓄タブにも表示されます。自由追加した品目も防災備蓄として管理できます</li>
-      </ul>
-
-      <h3 style="margin-top: 20px;">防災タグ・共有タグ</h3>
-      <p>日用ストックの各カードには「防災」「共有」のタグボタンがあります。編集画面からも切り替えられます。</p>
-      <ul>
-        <li><strong>防災タグ</strong>：オンにすると防災備蓄タブにも表示されます。普段使いの食料品などを防災備蓄として兼用したいときに便利です</li>
-        <li><strong>共有タグ</strong>：オンにすると共有備蓄タブに表示され、グループメンバーと在庫状況を共有できます</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 共有のしくみ</strong>
-        防災備蓄の内容は自動で共有備蓄にも反映されます。日用ストックは「共有タグ」をオンにしたものだけが共有されるので、個人のストックや知られたくないものは非公開のまま管理できます。<br><br>
-        <strong>共有機能を使うには</strong>：共有プランへの加入、または共有プラン利用者からグループに招待されることが必要です。
-      </div>
-    </div>
-  </div>
-
-  <!-- 緊急持ち出し袋 -->
-  <div class="guide-block" style="margin-top: 8px;">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/emergency_kit_bag.png" alt="緊急持ち出し袋の画面">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>🎒 緊急持ち出し袋の管理</h3>
-      <p>バッグアイコンをタップすると、その品目が緊急持ち出し袋に登録されます。防災備蓄・日用ストックどちらの品目でも登録できます。</p>
-      <ul>
-        <li>持ち出す予定の品目と数量をまとめて一覧で確認できます</li>
-        <li>持出袋の保管場所や備考メモも登録できます</li>
-        <li>ホーム画面の「緊急時サポート」→「持ち出し」タブから確認できます</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 ポイント</strong>
-        平常時から持ち出し品を登録しておくことで、いざというときに何を持ち出すか迷わずに済みます。
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- ④ ローリングストック -->
-<div class="section-wrap" id="rolling">
-  <h2 class="section-title">④ ローリングストック</h2>
-  <p class="section-desc">
-    備蓄品の賞味期限を一覧で管理する画面です。<br>
-    期限が近づいたら日常の食事で消費し、補充することで常に新鮮な備蓄を保てます。
-  </p>
-
-  <div class="guide-block reverse">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/rolling.png" alt="ローリングストック一覧">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>期限管理の見方</h3>
-      <p>賞味期限を登録した品目が期限の近い順に並びます。何を先に使えばよいかひと目でわかります。</p>
-      <ul>
-        <li><strong>赤「期限切れ」</strong>：期限が過ぎた品目。早めに入れ替えましょう</li>
-        <li><strong>「あと○日」</strong>：消費すべきタイミングを日数で表示</li>
-        <li><strong>「期限未設定」</strong>：まだ賞味期限が登録されていない品目</li>
-        <li>各行の鉛筆アイコンから賞味期限をすばやく更新できます</li>
-        <li>上部のタブで「全表示」「期限設定済み」「期限未設定」に絞り込めます</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 ローリングストックの考え方</strong>
-        「使ったら買い足す」を習慣にするだけで、いざというときに新鮮な備蓄が手元に揃います。
-        無理に食べきろうとせず、日常の料理に少しずつ取り入れましょう。
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ⑤ 買い物支援 -->
-<div class="section-wrap" id="shopping">
-  <h2 class="section-title">⑤ 買い物支援（買い物リスト）</h2>
-  <p class="section-desc">
-    日用ストックに登録した品目をそのまま買い物リストとして活用できます。<br>
-    スーパーやドラッグストアでの買い物をスマートにサポートします。
-  </p>
-
-  <div class="guide-block">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/shopping.png" alt="買い物リスト">
-      </div>
-    </div>
-    <div class="guide-text">
-      <h3>買い物リストの開き方と使い方</h3>
-      <p>日用ストックタブを開き、右下の「＋」ボタンのひとつ上にあるメモアイコンをタップすると買い物リストが表示されます。</p>
-      <ul>
-        <li>日用ストックの品目と在庫数・目標数がそのまま表示されます。事前に目標数を入力しておくと一層便利です</li>
-        <li>「＋」「−」で今回購入する数を調整できます</li>
-        <li><strong>「保存」ボタン</strong>：リストを保存すると、アプリを閉じた後も再度開いて続きから使えます</li>
-        <li><strong>チェック後に「買ったものを追加」</strong>：チェックした品目と数量が日用ストックの在庫に自動で反映されます</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 もっと使いやすくするには</strong>
-        日用ストックの各品目に「目標数」を設定しておくと、どれが不足しているかひと目でわかり、買い物リストがより活用しやすくなります。
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ⑥ 緊急時サポート -->
-<div class="section-wrap" id="emergency">
-  <h2 class="section-title">⑥ 緊急時サポート</h2>
-  <p class="section-desc">
-    いざというときに役立つ5つの機能をまとめたタブです。<br>
-    「持ち出し」「チェック」「行動ナビ」「安否確認」「地震情報」の各タブで構成されています。
-  </p>
-
-  <div class="guide-block">
-    <div class="phone-pair">
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/emergency_check.png" alt="チェックリスト">
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/home/02-1.png" alt="ホーム 画面1">
+          <img src="./images/home/02-2.png" alt="ホーム 画面2">
         </div>
+        <p class="gallery-hint">← 横にスワイプで続きを確認</p>
+        <p class="sec-heading">ホーム画面の見方</p>
+        <p class="body-text">アプリを開くと最初に表示されるダッシュボードです。今の備蓄状況を大まかに把握できます。防災スコアとカテゴリ別の充足率が一目でわかります。</p>
+        <ul class="bullet-list">
+          <li><strong>防災スコア</strong>：備蓄の充実度を0〜100で表示。カテゴリ別の内訳も確認できます</li>
+          <li><strong>注意が必要な品目</strong>：期限切れ・期限間近の防災備蓄品。タップすると備蓄リストに移動します</li>
+          <li><strong>日用ストック</strong>：在庫が少ない・期限切れの日用品のお知らせ。タップすると備蓄リストに移動します</li>
+          <li><strong>緊急時サポート</strong>：「確認」ボタンから持ち出し袋の設定やチェックリストに移動できます</li>
+        </ul>
       </div>
-      <div class="phone-wrap">
-        <div class="phone-frame">
-          <img src="screenshots/emergency_navi.png" alt="行動ナビ">
+    </div>
+  </div>
+
+  <div class="accordion" id="acc-3">
+    <div class="accordion-header" onclick="toggle('acc-3')">
+      <span class="accordion-emoji">🛡️</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 3</div>
+        <h2>防災備蓄</h2>
+      </div>
+      <span class="accordion-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/stock/Screenshot_1775888681.png" alt="防災備蓄">
+        </div>
+        <p class="sec-heading">防災備蓄の管理</p>
+        <p class="body-text">初期設定で選んだ備蓄品目を管理する画面です。上部に現在の防災スコアが表示され、カテゴリ別の充足率も確認できます。「＋」「−」ボタンで在庫数を増減でき、各カードのバーが長いほど目標数量を満たしている状態です。</p>
+        <ul class="bullet-list">
+          <li><strong>編集（✏️）</strong>：賞味期限・メモ・購入時の検索ワードなどを登録できます</li>
+          <li><strong>カートアイコン</strong>：Amazon・楽天市場・ヤフーショッピングをそのまま開けます。編集画面で検索ワードを設定しておくとそのワードで検索した状態で起動します</li>
+          <li><strong>🎒 バッグアイコン</strong>：緊急持ち出し袋への登録・数量指定ができます</li>
+          <li><strong>右下の＋ボタン</strong>：定番品目以外を自由に追加できます</li>
+        </ul>
+        <p class="sec-heading">🎒 緊急持ち出し袋の管理</p>
+        <p class="body-text">バッグアイコンをタップすると、その品目が緊急持ち出し袋に登録されます。防災備蓄・日用ストックどちらの品目でも登録できます。</p>
+        <ul class="bullet-list">
+          <li>持ち出す予定の品目と数量をまとめて一覧で確認できます</li>
+          <li>持出袋の保管場所や備考メモも登録できます</li>
+          <li>ホーム画面の「緊急時サポート」→「持ち出し」タブから確認できます</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 ポイント</div>
+          平常時から持ち出し品を登録しておくことで、いざというときに何を持ち出すか迷わずに済みます。
         </div>
       </div>
     </div>
-    <div class="guide-text">
-      <h3>チェックリストと行動ナビ</h3>
-      <p><strong>チェックタブ</strong>：災害発生直後にやるべきことがカテゴリ別にまとめられています。<br>
-      「身の安全」「火の始末」「電気・水道」「避難準備」など、慌てずに確認できます。</p>
-      <p><strong>行動ナビタブ</strong>：地震・火災・水害・台風など、災害の種類ごとに取るべき行動をステップ形式でわかりやすく解説します。</p>
-      <ul>
-        <li>チェックリストは全項目完了すると「確認完了」に変わります</li>
-        <li>行動ナビは平常時にも読んでおくことで、もしものときの心構えができます</li>
-      </ul>
+  </div>
+
+  <div class="accordion" id="acc-4">
+    <div class="accordion-header" onclick="toggle('acc-4')">
+      <span class="accordion-emoji">🛒</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 4</div>
+        <h2>日用ストック・買い物リスト</h2>
+      </div>
+      <span class="accordion-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/daily/Screenshot_1775888287.png" alt="日用 画面1">
+          <img src="./images/daily/Screenshot_1775891573.png" alt="日用 画面2">
+          <img src="./images/daily/Screenshot_1775891589.png" alt="日用 画面3">
+          <img src="./images/daily/Screenshot_1775891604.png" alt="日用 画面4">
+          <img src="./images/daily/Screenshot_1775892425.png" alt="日用 画面5">
+          <img src="./images/daily/Screenshot_1775895464.png" alt="日用 画面6">
+          <img src="./images/daily/Screenshot_1775895467.png" alt="日用 画面7">
+          <img src="./images/daily/Screenshot_1775895476.png" alt="日用 画面8">
+        </div>
+        <p class="gallery-hint">← 横にスワイプで続きを確認</p>
+        <p class="sec-heading">日用ストック</p>
+        <p class="body-text">マヨネーズ・シャンプーなど、日常的に使うものをストック管理できるタブです。右下の青い「＋」ボタンから、定番品目の追加と自由入力での追加ができます。</p>
+        <ul class="bullet-list">
+          <li>品名・カテゴリ・数量・単位を自由に設定できます</li>
+          <li>目標数を入力すると充足率バーが表示され、在庫の過不足がひと目でわかります</li>
+          <li>賞味期限・検索ワード・メモなども合わせて登録できます</li>
+          <li><strong>防災タグ</strong>：オンにすると防災備蓄タブにも表示されます。普段使いの食料品を防災備蓄として兼用したいときに便利です</li>
+          <li><strong>共有タグ</strong>：オンにすると共有備蓄タブに表示され、グループメンバーと在庫状況を共有できます</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 共有のしくみ</div>
+          防災備蓄の内容は自動で共有備蓄にも反映されます。日用ストックは「共有タグ」をオンにしたものだけが共有されるので、個人のストックは非公開のまま管理できます。共有機能を使うには共有プランへの加入が必要です。
+        </div>
+        <p class="sec-heading">買い物リスト</p>
+        <p class="body-text">日用ストックに登録した品目をそのまま買い物リストとして活用できます。日用ストックタブを開き、右下の「＋」ボタンのひとつ上にあるメモアイコンをタップして開きます。</p>
+        <ul class="bullet-list">
+          <li>日用ストックの品目・在庫数・目標数がそのまま表示されます</li>
+          <li>「＋」「−」で今回購入する数を調整できます</li>
+          <li><strong>保存</strong>：アプリを閉じた後も再度開いて続きから使えます</li>
+          <li><strong>買ったものを追加</strong>：チェックした品目の数量が日用ストックの在庫に自動で反映されます</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 もっと使いやすくするには</div>
+          各品目に「目標数」を設定しておくと、どれが不足しているかひと目でわかり、買い物リストがより活用しやすくなります。
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="guide-block reverse">
-    <div class="phone-wrap">
-      <div class="phone-frame">
-        <img src="screenshots/emergency_safety.png" alt="安否確認">
+  <div class="accordion" id="acc-5">
+    <div class="accordion-header" onclick="toggle('acc-5')">
+      <span class="accordion-emoji">🆘</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 5</div>
+        <h2>緊急時サポート</h2>
       </div>
+      <span class="accordion-arrow">▼</span>
     </div>
-    <div class="guide-text">
-      <h3>安否確認</h3>
-      <p>共有グループのメンバーと安否状況をリアルタイムで共有できます。<br>
-      「安全」「避難中」「要支援（SOS）」の3つから自分の状況を選んで報告します。</p>
-      <ul>
-        <li>メンバー全員の状況が一覧で確認できます</li>
-        <li>NTTの「災害用伝言ダイヤル（171）」への発信ボタンも搭載しています</li>
-        <li>回線が混雑して電話がつながりにくいときの連絡手段としても活用できます</li>
-      </ul>
-      <div class="tip-box">
-        <strong>💡 事前の準備が大切です</strong>
-        安否確認は共有グループを作成することで使えます。
-        離れて暮らすご家族と、平常時にグループを作成しておくことをおすすめします。
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/emergency/Screenshot_1775888715.png" alt="緊急時 画面1">
+          <img src="./images/emergency/Screenshot_1775888723.png" alt="緊急時 画面2">
+          <img src="./images/emergency/Screenshot_1775889052.png" alt="緊急時 画面3">
+        </div>
+        <p class="gallery-hint">← 横にスワイプで続きを確認</p>
+        <p class="sec-heading">5つの機能</p>
+        <p class="body-text">いざというときに役立つ「持ち出し」「チェック」「行動ナビ」「安否確認」「地震情報」の各タブで構成されています。</p>
+        <p class="sec-heading">チェックリストと行動ナビ</p>
+        <ul class="bullet-list">
+          <li><strong>チェックタブ</strong>：災害発生直後にやるべきことがカテゴリ別にまとめられています。「身の安全」「火の始末」「電気・水道」「避難準備」など、慌てずに確認できます</li>
+          <li><strong>行動ナビタブ</strong>：地震・火災・水害・台風など、災害の種類ごとに取るべき行動をステップ形式で解説します</li>
+          <li>チェックリストは全項目完了すると「確認完了」に変わります</li>
+          <li>行動ナビは平常時にも読んでおくことで、もしものときの心構えができます</li>
+        </ul>
+        <p class="sec-heading">安否確認</p>
+        <p class="body-text">共有グループのメンバーと安否状況をリアルタイムで共有できます。「安全」「避難中」「要支援（SOS）」の3つから自分の状況を報告します。</p>
+        <ul class="bullet-list">
+          <li>メンバー全員の状況が一覧で確認できます</li>
+          <li>NTTの「災害用伝言ダイヤル（171）」への発信ボタンも搭載しています</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 事前の準備が大切です</div>
+          安否確認は共有グループを作成することで使えます。離れて暮らすご家族と、平常時にグループを作成しておくことをおすすめします。
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <div class="accordion" id="acc-6">
+    <div class="accordion-header" onclick="toggle('acc-6')">
+      <span class="accordion-emoji">🔄</span>
+      <div class="accordion-title">
+        <div class="step-label">STEP 6</div>
+        <h2>ローリングストック</h2>
+      </div>
+      <span class="accordion-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <div class="gallery">
+          <img src="./images/rolling/Screenshot_1775896281.png" alt="ローリングストック">
+        </div>
+        <p class="sec-heading">期限管理の見方</p>
+        <p class="body-text">備蓄品の賞味期限を一覧で管理する画面です。期限が近い順に並び、何を先に使えばよいかひと目でわかります。</p>
+        <ul class="bullet-list">
+          <li><strong>赤「期限切れ」</strong>：期限が過ぎた品目。早めに入れ替えましょう</li>
+          <li><strong>「あと○日」</strong>：消費すべきタイミングを日数で表示します</li>
+          <li><strong>「期限未設定」</strong>：まだ賞味期限が登録されていない品目</li>
+          <li>各行の鉛筆アイコンから賞味期限をすばやく更新できます</li>
+          <li>上部のタブで「全表示」「期限設定済み」「期限未設定」に絞り込めます</li>
+        </ul>
+        <div class="tip-box">
+          <div class="tip-label">💡 ローリングストックの考え方</div>
+          「使ったら買い足す」を習慣にするだけで、いざというときに新鮮な備蓄が手元に揃います。無理に食べきろうとせず、日常の料理に少しずつ取り入れましょう。
+        </div>
+      </div>
+    </div>
+  </div>
 
-<footer>
-  <p>&copy; 2026 SafeStock</p>
-  <p style="margin-top: 8px;">
-    <a href="index.html">トップページ</a>
-    &nbsp;|&nbsp;
-    <a href="privacy.html">プライバシーポリシー</a>
-    &nbsp;|&nbsp;
-    <a href="mailto:safestock.app2026@gmail.com">お問い合わせ</a>
-  </p>
-</footer>
+</main>
+
+<script>
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+</script>
 
 </body>
 </html>
