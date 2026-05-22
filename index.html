@@ -31,6 +31,10 @@
     }
     .badge-btn:hover { opacity: 0.85; }
     .badge-btn.disabled { opacity: 0.5; cursor: default; pointer-events: none; }
+    .qr-row { display: flex; gap: 32px; justify-content: center; margin-top: 24px; }
+    .qr-item { text-align: center; }
+    .qr-item img { width: 100px; height: 100px; border-radius: 8px; background: #fff; padding: 6px; }
+    .qr-item p { font-size: 12px; margin-top: 6px; opacity: 0.85; }
 
     /* セクション共通 */
     section { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
@@ -97,6 +101,16 @@
   <div class="badge-row">
     <a href="https://play.google.com/store/apps/details?id=taiho.app.safestock" class="badge-btn" target="_blank" rel="noopener">▶ Google Play</a>
     <a href="https://apps.apple.com/jp/app/safestock/id6764766877" class="badge-btn" target="_blank" rel="noopener">▶ App Store</a>
+  </div>
+  <div class="qr-row">
+    <div class="qr-item">
+      <img src="images/QRAndroid.png" alt="Android QRコード">
+      <p>Android</p>
+    </div>
+    <div class="qr-item">
+      <img src="images/QRiphone.png" alt="iPhone QRコード">
+      <p>iPhone</p>
+    </div>
   </div>
 </header>
 
