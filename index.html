@@ -1,214 +1,849 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SafeStock - 家族を守る備蓄管理アプリ</title>
+  <title>SafeStock - いつもの買い物から、もしもの備えへ</title>
+  <meta name="description" content="SafeStockは、防災備蓄・日用品ストック・買い物リスト・持出袋・緊急時サポートをまとめて管理できるアプリです。">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; color: #333; background: #fff; }
-
-    /* ヘッダー */
-    header {
-      background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
+    :root {
+      --blue: #1565c0;
+      --blue-dark: #123f73;
+      --green: #2e7d32;
+      --teal: #00897b;
+      --orange: #f57c00;
+      --ink: #14212f;
+      --muted: #5d6c7d;
+      --line: #d7e2ec;
+      --paper: #ffffff;
+      --wash: #f5f8fb;
+      --blue-soft: #eaf4ff;
+      --green-soft: #ecf8f0;
+      --orange-soft: #fff5e5;
+      --shadow: 0 18px 50px rgba(20, 33, 47, 0.12);
     }
-    header h1 { font-size: 2.4em; font-weight: 700; letter-spacing: 0.05em; }
-    header p { font-size: 1.1em; margin-top: 12px; opacity: 0.9; }
-    .badge-row { margin-top: 32px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .badge-btn {
-      display: inline-block;
-      background: #fff;
-      color: #2e7d32;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.95em;
-      text-decoration: none;
-      transition: opacity 0.2s;
+
+    * {
+      box-sizing: border-box;
     }
-    .badge-btn:hover { opacity: 0.85; }
-    .badge-btn.disabled { opacity: 0.5; cursor: default; pointer-events: none; }
-    .qr-row { display: flex; gap: 32px; justify-content: center; margin-top: 24px; }
-    .qr-item { text-align: center; }
-    .qr-item img { width: 100px; height: 100px; border-radius: 8px; background: #fff; padding: 6px; }
-    .qr-item p { font-size: 12px; margin-top: 6px; opacity: 0.85; }
 
-    /* セクション共通 */
-    section { padding: 60px 20px; max-width: 800px; margin: 0 auto; }
-    h2 { font-size: 1.6em; color: #2e7d32; border-left: 4px solid #43a047; padding-left: 12px; margin-bottom: 28px; }
-
-    /* アプリ概要 */
-    .about-text { font-size: 1.05em; line-height: 1.9; color: #444; }
-
-    /* 機能リスト */
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .feature-card {
-      background: #f9fbe7;
-      border-radius: 12px;
-      padding: 24px 20px;
-      text-align: center;
+    html {
+      scroll-behavior: smooth;
     }
-    .feature-card .icon { font-size: 2em; margin-bottom: 10px; }
-    .feature-card h3 { font-size: 1em; font-weight: 700; margin-bottom: 8px; color: #2e7d32; }
-    .feature-card p { font-size: 0.9em; color: #555; line-height: 1.7; }
 
-    /* 使い方 */
-    .steps { counter-reset: step; }
-    .step {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 28px;
-      align-items: flex-start;
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    .step-num {
-      background: #2e7d32;
-      color: #fff;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(215,226,236,0.85);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 22px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue-dark);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
-      font-weight: 700;
-      flex-shrink: 0;
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
     }
-    .step-body h3 { font-size: 1em; font-weight: 700; margin-bottom: 4px; }
-    .step-body p { font-size: 0.9em; color: #555; line-height: 1.7; }
 
-    /* 区切り線 */
-    hr { border: none; border-top: 1px solid #e0e0e0; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0) 0%, #fff 93%),
+        radial-gradient(circle at 82% 15%, rgba(46,125,50,0.18), transparent 32%),
+        radial-gradient(circle at 12% 8%, rgba(21,101,192,0.14), transparent 30%),
+        var(--wash);
+    }
 
-    /* フッター */
-    footer {
-      background: #f5f5f5;
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      min-height: calc(100vh - 65px);
+      padding: 74px 22px 58px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(340px, 1.05fr);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 15px;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    h1 {
+      margin: 20px 0 0;
+      color: var(--blue-dark);
+      font-size: clamp(38px, 4.8vw, 64px);
+      line-height: 1.1;
+      letter-spacing: 0;
+      font-weight: 900;
+      word-break: keep-all;
+      line-break: strict;
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      max-width: 650px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.9vw, 20px);
+    }
+
+    .store-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 52px;
+      text-decoration: none;
+    }
+
+    .store-badge img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .store-badge.app-store img {
+      height: 50px;
+    }
+
+    .guide-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      color: var(--blue-dark);
+      background: #fff;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-point {
+      min-height: 98px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.86);
+      box-shadow: 0 10px 28px rgba(20,33,47,0.06);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-point strong {
+      display: block;
+      color: var(--ink);
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 580px;
+      display: grid;
+      place-items: center;
+    }
+
+    .phone-main {
+      width: min(330px, 78vw);
+      border: 10px solid #102033;
+      border-radius: 34px;
+      background: #102033;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transform: rotate(1deg);
+      z-index: 2;
+    }
+
+    .phone-main img {
+      border-radius: 22px;
+    }
+
+    .mini-shot {
+      position: absolute;
+      width: 178px;
+      border: 6px solid #fff;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow);
+      z-index: 3;
+    }
+
+    .mini-shot.shopping {
+      left: 0;
+      bottom: 58px;
+      transform: rotate(-5deg);
+    }
+
+    .mini-shot.kit {
+      right: 0;
+      top: 46px;
+      transform: rotate(6deg);
+    }
+
+    .section {
+      padding: 88px 22px;
+    }
+
+    .section.alt {
+      background: var(--wash);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 870px;
+      margin-bottom: 36px;
+    }
+
+    .section-label {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(28px, 3.8vw, 42px);
+      line-height: 1.25;
+      letter-spacing: 0;
+      word-break: keep-all;
+      line-break: strict;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .routine-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .routine-card {
+      min-height: 220px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .routine-card:nth-child(2) {
+      background: var(--blue-soft);
+    }
+
+    .routine-card:nth-child(3) {
+      background: var(--orange-soft);
+    }
+
+    .step-num {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .routine-card h3,
+    .feature-card h3 {
+      margin: 0 0 8px;
+      color: var(--blue-dark);
+      font-size: 20px;
+      line-height: 1.38;
+    }
+
+    .routine-card p,
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+      gap: 58px;
+      align-items: center;
+    }
+
+    .screen-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .screen {
+      border: 8px solid #102033;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #102033;
+      box-shadow: var(--shadow);
+    }
+
+    .screen.offset {
+      margin-top: 56px;
+    }
+
+    .benefit-list {
+      list-style: none;
+      padding: 0;
+      margin: 28px 0 0;
+      display: grid;
+      gap: 16px;
+    }
+
+    .benefit-list li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .check {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--green);
+      background: var(--green-soft);
+      font-weight: 900;
+    }
+
+    .benefit-list strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--ink);
+      font-size: 17px;
+    }
+
+    .benefit-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 218px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-weight: 900;
+    }
+
+    .cta {
+      padding: 44px;
+      border-radius: 8px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue-dark), var(--teal));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      color: #fff;
+    }
+
+    .cta .section-copy,
+    .cta .section-label {
+      color: rgba(255,255,255,0.88);
+    }
+
+    .qr-row {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .qr-item {
+      min-width: 112px;
       text-align: center;
-      padding: 32px 20px;
-      font-size: 0.85em;
-      color: #777;
     }
-    footer a { color: #2e7d32; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+
+    .qr-item img {
+      width: 112px;
+      height: 112px;
+      padding: 8px;
+      margin: 0 auto;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .qr-item span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255,255,255,0.92);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    footer {
+      padding: 34px 22px;
+      background: #eef2f6;
+      color: #667789;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    @media (max-width: 960px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-inner,
+      .split,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding-top: 54px;
+      }
+
+      .visual {
+        min-height: 430px;
+      }
+
+      .mini-shot {
+        width: 140px;
+      }
+
+      .routine-grid,
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .section {
+        padding: 64px 18px;
+      }
+
+      .hero-inner {
+        padding: 48px 18px 58px;
+        gap: 32px;
+      }
+
+      h1 {
+        font-size: clamp(34px, 11vw, 46px);
+      }
+
+      h2 {
+        font-size: clamp(26px, 8.2vw, 34px);
+      }
+
+      br.desktop-break {
+        display: none;
+      }
+
+      .hero-points,
+      .routine-grid,
+      .feature-grid,
+      .screen-pair {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-point {
+        min-height: 0;
+      }
+
+      .store-badges {
+        gap: 10px;
+      }
+
+      .store-badge {
+        height: 46px;
+      }
+
+      .store-badge img {
+        height: 46px;
+      }
+
+      .store-badge.app-store img {
+        height: 44px;
+      }
+
+      .guide-link {
+        min-height: 44px;
+      }
+
+      .visual {
+        min-height: auto;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .phone-main {
+        width: min(260px, 78vw);
+        grid-column: 1 / -1;
+        justify-self: center;
+        transform: none;
+      }
+
+      .mini-shot {
+        position: static;
+        width: min(150px, 42vw);
+        border-width: 4px;
+        border-radius: 18px;
+        transform: none;
+        justify-self: center;
+      }
+
+      .screen.offset {
+        margin-top: 0;
+      }
+
+      .cta {
+        padding: 28px;
+      }
+
+      .qr-row {
+        flex-wrap: wrap;
+      }
+    }
   </style>
 </head>
 <body>
-
-<header>
-  <h1><img src="images/app_icon.png" alt="SafeStock" style="width:60px;height:60px;border-radius:14px;vertical-align:middle;margin-right:10px;">SafeStock</h1>
-  <p>家族を守る、備蓄管理アプリ</p>
-  <div class="badge-row">
-    <a href="https://play.google.com/store/apps/details?id=taiho.app.safestock" class="badge-btn" target="_blank" rel="noopener">▶ Google Play</a>
-    <a href="https://apps.apple.com/jp/app/safestock/id6764766877" class="badge-btn" target="_blank" rel="noopener">▶ App Store</a>
-  </div>
-  <div class="qr-row">
-    <div class="qr-item">
-      <img src="images/QRAndroid.png" alt="Android QRコード">
-      <p>Android</p>
-    </div>
-    <div class="qr-item">
-      <img src="images/QRiphone.png" alt="iPhone QRコード">
-      <p>iPhone</p>
-    </div>
-  </div>
-</header>
-
-<section>
-  <h2>SafeStockとは</h2>
-  <p class="about-text">
-    SafeStockは、食料・日用品・防災グッズを一元管理できる備蓄管理アプリです。<br>
-    賞味期限を登録するだけで、消費タイミングをお知らせする「ローリングストック」機能を搭載。<br>
-    家族と備蓄状況を共有することもできます。いざというときに備えて、日常から無理なく準備を続けましょう。
-  </p>
-</section>
-
-<hr>
-
-<section>
-  <h2>主な機能</h2>
-  <div class="features">
-    <div class="feature-card">
-      <div class="icon">📦</div>
-      <h3>備蓄リスト管理</h3>
-      <p>食料・日用品・防災グッズをまとめて管理。推奨備蓄品目から簡単に登録できます。</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🔄</div>
-      <h3>ローリングストック</h3>
-      <p>賞味期限をもとに消費・補充のタイミングをお知らせ。食品ロスを防ぎながら備蓄を維持。</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">👨‍👩‍👧</div>
-      <h3>家族と共有</h3>
-      <p>グループを作成して備蓄状況を共有。離れて暮らす家族の安心にも。</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🆘</div>
-      <h3>緊急時サポート</h3>
-      <p>避難所検索・安否確認など、いざというときに役立つ機能を搭載。</p>
-    </div>
-  </div>
-</section>
-
-<hr>
-
-<section>
-  <h2>使い方</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h3>世帯情報を設定する</h3>
-        <p>家族構成・居住地域・備蓄日数を入力すると、あなたの世帯に合った備蓄量が自動計算されます。</p>
+  <header class="site-header">
+    <nav class="nav" aria-label="メインナビゲーション">
+      <a class="brand" href="#">
+        <img src="images/app_icon.png" alt="">
+        <span>SafeStock</span>
+      </a>
+      <div class="nav-links">
+        <a href="#routine">使い方</a>
+        <a href="#daily">日用品管理</a>
+        <a href="#emergency">持出袋</a>
+        <a href="howto.html">使い方ガイド</a>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h3>備蓄品を登録する</h3>
-        <p>推奨備蓄品目リストから選択するだけで簡単登録。賞味期限・数量・メモも記録できます。<br>防災備蓄・日用ストックで非常時の備えと日常使いの両方に対応</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h3>緊急時サポート</h3>
-        <p>緊急時持出袋に何を入れているか・どこに置いているか登録できます。また、緊急時の行動チェックや各災害時の行動指針を確認できます。これらの機能はオフライン環境でも使うことができます。</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div class="step-body">
-        <h3>ローリングストックで管理</h3>
-        <p>期限が近い品目をアプリがお知らせ。日常的に消費・補充するサイクルを無理なく続けられます。また、各リストの項目からAmazon・楽天・ヤフーショッピングのアプリを起動して、不足品を購入することもできます。<br>日用ストックには買い物リスト機能搭載。買い物に行く前に在庫状況を登録しておき、購入したものは自動でリストに反映できます。</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">5</div>
-      <div class="step-body">
-        <h3>家族と共有する（オプション）</h3>
-        <p>共有プランに登録すると、グループ登録ができるようになります。家族や友人、恋人と備蓄状況をリアルタイムで共有、災害時の安否確認も行えます。</p>
-      </div>
-    </div>
-  </div>
-  <div style="text-align:center; margin-top: 32px;">
-    <a href="howto.html" style="display:inline-block; background:#2e7d32; color:#fff; padding:14px 36px; border-radius:8px; font-weight:700; font-size:1em; text-decoration:none;">
-      📖 詳しい使い方ガイドを見る
-    </a>
-  </div>
-</section>
+      <a class="nav-cta" href="#download">ダウンロード</a>
+    </nav>
+  </header>
 
-<hr>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">いつもの買い物から、もしもの備えへ</div>
+          <h1>家のストックを、<br>防災の備えに<br>つなげる。</h1>
+          <p class="hero-lead">SafeStockは、防災備蓄・日用品ストック・買い物リスト・持出袋をまとめて管理できるアプリです。買い物前のメモから、もしもの準備まで自然につながります。</p>
+          <div class="store-badges">
+            <a class="store-badge app-store" href="https://apps.apple.com/jp/app/safestock/id6764766877" target="_blank" rel="noopener" aria-label="App Storeからダウンロード">
+              <img src="images/badge_app_store.svg" alt="Download on the App Store">
+            </a>
+            <a class="store-badge" href="https://play.google.com/store/apps/details?id=taiho.app.safestock" target="_blank" rel="noopener" aria-label="Google Playで手に入れよう">
+              <img src="images/badge_google_play.png" alt="Google Play で手に入れよう">
+            </a>
+            <a class="guide-link" href="howto.html">使い方を見る</a>
+          </div>
+          <div class="hero-points">
+            <div class="hero-point"><strong>買い物前に確認</strong>不足している日用品や食品をリスト化。</div>
+            <div class="hero-point"><strong>買ったら反映</strong>購入したものをストック数へ追加。</div>
+            <div class="hero-point"><strong>もしもに備える</strong>持出袋の中身と保管場所も整理。</div>
+          </div>
+        </div>
 
-<footer>
-  <p>&copy; 2026 SafeStock</p>
-  <p style="margin-top: 8px;">
-    <a href="privacy.html">プライバシーポリシー</a>
-    &nbsp;|&nbsp;
-    <a href="mailto:safestock.app2026@gmail.com">お問い合わせ</a>
-  </p>
-</footer>
+        <div class="visual" aria-label="SafeStockの画面イメージ">
+          <div class="phone-main">
+            <img src="screenshots/daily_stock.png" alt="日用ストック画面">
+          </div>
+          <div class="mini-shot shopping">
+            <img src="screenshots/shopping.png" alt="買い物リスト画面">
+          </div>
+          <div class="mini-shot kit">
+            <img src="screenshots/emergency_kit_bag.png" alt="持出袋管理画面">
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="section alt" id="routine">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">ROUTINE</p>
+          <h2>防災を、特別な作業にしない。</h2>
+          <p class="section-copy">備蓄は「買って終わり」では続きません。普段の買い物と在庫確認の中に入れておくことで、無理なく更新できます。</p>
+        </div>
+        <div class="routine-grid">
+          <article class="routine-card">
+            <div class="step-num">1</div>
+            <h3>家にあるものを登録</h3>
+            <p>食料、日用品、防災グッズをまとめて登録。目標数を入れると不足が見えます。</p>
+          </article>
+          <article class="routine-card">
+            <div class="step-num">2</div>
+            <h3>買い物前にメモする</h3>
+            <p>日用ストックの状況を見ながら、今回買うものをリスト化できます。</p>
+          </article>
+          <article class="routine-card">
+            <div class="step-num">3</div>
+            <h3>買ったものを反映</h3>
+            <p>購入済みの品目を在庫数に追加。普段使いの補充が、防災備蓄の更新にもつながります。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="daily">
+      <div class="container split">
+        <div class="screen-pair">
+          <div class="screen">
+            <img src="screenshots/shopping.png" alt="買い物リスト画面">
+          </div>
+          <div class="screen offset">
+            <img src="screenshots/home.png" alt="ホーム画面">
+          </div>
+        </div>
+        <div>
+          <p class="section-label">DAILY STOCK</p>
+          <h2>買い物リストと在庫管理を、<br class="desktop-break">ひとつに。</h2>
+          <p class="section-copy">メモアプリで買い物リストを作ると、買った後に在庫へ反映する手間が残ります。SafeStockなら、買い物前のメモと日用品ストックがつながります。</p>
+          <ul class="benefit-list">
+            <li><span class="check">✓</span><div><strong>今回買う数を調整</strong><span>ストック数と目標数を見ながら、購入予定数を調整できます。</span></div></li>
+            <li><span class="check">✓</span><div><strong>買ったものを追加</strong><span>チェックした品目を、日用ストックへそのまま反映できます。</span></div></li>
+            <li><span class="check">✓</span><div><strong>EC検索にもつながる</strong><span>Amazon、楽天、Yahoo!ショッピングで不足品を探せます。</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="emergency">
+      <div class="container split">
+        <div>
+          <p class="section-label">EMERGENCY KIT</p>
+          <h2>持出袋は、中身と置き場所まで。</h2>
+          <p class="section-copy">いざという時に「何を持ち出すか」で迷わないように、持出袋に入れる品目と数量を登録できます。保管場所や備考も残せます。</p>
+          <ul class="benefit-list">
+            <li><span class="check">✓</span><div><strong>中身と数量を管理</strong><span>水、食料、ライト、衛生用品などを持出袋用に登録できます。</span></div></li>
+            <li><span class="check">✓</span><div><strong>置き場所も記録</strong><span>玄関、寝室、車内など、家族が探しやすい状態にできます。</span></div></li>
+            <li><span class="check">✓</span><div><strong>緊急時チェックと併用</strong><span>行動チェックリストや災害別ナビも確認できます。</span></div></li>
+          </ul>
+        </div>
+        <div class="screen-pair">
+          <div class="screen">
+            <img src="screenshots/emergency_kit_bag.png" alt="持出袋管理画面">
+          </div>
+          <div class="screen offset">
+            <img src="screenshots/emergency_check.png" alt="緊急時チェック画面">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-label">FEATURES</p>
+          <h2>日常から災害時まで、<br class="desktop-break">ひとつのアプリで。</h2>
+          <p class="section-copy">防災専用に閉じず、普段のストック管理から自然に使える設計です。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>防災備蓄管理</h3>
+            <p>家族構成・備蓄日数に合わせて、目標量と現在の充足率を確認できます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>ローリングストック</h3>
+            <p>賞味期限を一覧で見て、期限が近いものから使う習慣を作れます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">03</div>
+            <h3>購入サポート</h3>
+            <p>登録した検索ワードから、Amazon・楽天・Yahoo!ショッピングを開けます。</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon">04</div>
+            <h3>家族共有・安否確認</h3>
+            <p>共有プランでは備蓄状況や災害時の安否をグループで確認できます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="download">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <p class="section-label">DOWNLOAD</p>
+            <h2>まずは家にあるものを、<br class="desktop-break">ひとつ登録してみましょう。</h2>
+            <p class="section-copy">Android版・iPhone版を公開中。詳しい使い方はガイドページから確認できます。</p>
+            <div class="store-badges">
+              <a class="store-badge app-store" href="https://apps.apple.com/jp/app/safestock/id6764766877" target="_blank" rel="noopener" aria-label="App Storeからダウンロード">
+                <img src="images/badge_app_store.svg" alt="Download on the App Store">
+              </a>
+              <a class="store-badge" href="https://play.google.com/store/apps/details?id=taiho.app.safestock" target="_blank" rel="noopener" aria-label="Google Playで手に入れよう">
+                <img src="images/badge_google_play.png" alt="Google Play で手に入れよう">
+              </a>
+              <a class="guide-link" href="howto.html">使い方ガイド</a>
+            </div>
+          </div>
+          <div class="qr-row">
+            <div class="qr-item">
+              <img src="images/QRAndroid.png" alt="Android版ダウンロードQRコード">
+              <span>Android</span>
+            </div>
+            <div class="qr-item">
+              <img src="images/QRiphone.png" alt="iPhone版ダウンロードQRコード">
+              <span>iPhone</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; 2026 SafeStock</span>
+      <span>
+        <a href="privacy.html">プライバシーポリシー</a>
+        &nbsp;|&nbsp;
+        <a href="mailto:safestock.app2026@gmail.com">お問い合わせ</a>
+      </span>
+    </div>
+  </footer>
 </body>
 </html>
+
